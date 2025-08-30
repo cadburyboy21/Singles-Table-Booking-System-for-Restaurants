@@ -20,36 +20,56 @@ function Navbar() {
       {/* Hamburger for Mobile */}
       <button
         onClick={() => setMenuOpen(!menuOpen)}
-        className="md:hidden text-white"
+        className="md:hidden flex items-center gap-2 text-danger bg-transparent border-none focus:outline-none"
       >
-        {menuOpen ? <X size={28} /> : <Menu size={28} />}
+        {menuOpen ? <X size={24} /> : <Menu size={24} />}
+        <span className="text-lg font-medium">Menu</span>
       </button>
 
-      
+
+
       {/* Mobile Dropdown */}
       {menuOpen && (
-        <div className="absolute top-16 right-4 bg-white text-warning rounded-xl shadow-lg p-4 flex flex-col gap-4 md:hidden ">
-          <Link to="/dashboard" onClick={() => setMenuOpen(false)}>Dashboard</Link>
-          <Link to="/tables" onClick={() => setMenuOpen(false)}>Tables</Link>
-          <Link to="/bookings" onClick={() => setMenuOpen(false)}>My Bookings</Link>
-          <Link to="/profile" onClick={() => setMenuOpen(false)}>Profile</Link>
-          {!token ? (
-            <>
-              <Link to="/login" onClick={() => setMenuOpen(false)}>Login</Link>
-              <Link to="/signup" onClick={() => setMenuOpen(false)}>Signup</Link>
-            </>
-          ) : (
-            <button
-              onClick={() => {
-                localStorage.removeItem("token");
-                window.location.href = "/login";
-              }}
-            >
-              Logout
-            </button>
-          )}
+        <div className="absolute top-16 right-4 bg-white text-warning rounded-xl shadow-lg p-4 md:hidden">
+          <ul className="flex flex-col gap-4">
+            <li>
+              <Link to="/dashboard" onClick={() => setMenuOpen(false)}>Dashboard</Link>
+            </li>
+            <li>
+              <Link to="/tables" onClick={() => setMenuOpen(false)}>Tables</Link>
+            </li>
+            <li>
+              <Link to="/bookings" onClick={() => setMenuOpen(false)}>My Bookings</Link>
+            </li>
+            <li>
+              <Link to="/profile" onClick={() => setMenuOpen(false)}>Profile</Link>
+            </li>
+            {!token ? (
+              <>
+                <li>
+                  <Link to="/login" onClick={() => setMenuOpen(false)}>Login</Link>
+                </li>
+                <li>
+                  <Link to="/signup" onClick={() => setMenuOpen(false)}>Signup</Link>
+                </li>
+              </>
+            ) : (
+              <li>
+                <button
+                  className="text-left w-full"
+                  onClick={() => {
+                    localStorage.removeItem("token");
+                    window.location.href = "/login";
+                  }}
+                >
+                  Logout
+                </button>
+              </li>
+            )}
+          </ul>
         </div>
       )}
+
     </nav>
   );
 }
@@ -222,7 +242,7 @@ function Tables() {
             {t.status !== "booked" && (
               <button
                 onClick={() => bookTable(t._id)}
-                className="bg-red-500 hover:bg-red-600 text-white px-4 py-1 rounded-lg"
+                className="bg-red-500 hover:bg-red-600 text-white px-4 py-1 rounded-lg btn btn-warning"
               >
                 Book
               </button>
